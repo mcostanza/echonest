@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response version="3">
+	<status>
+		<code>0</code>
+		<message>Success</message>
+	</status>
+	<query>
+		<parameter name="api_key">5ZAOMB3BUR8QUN4PE</parameter>
+		<parameter name="rows">2</parameter>
+	</query>
+	<artists>
+		<artist>
+			<name>Katy Perry</name>
+			<id>music://id.echonest.com/~/AR/AR0IVTL1187B9AD520</id>
+			<hotttnesss>1.0</hotttnesss>
+		</artist>
+		<artist>
+			<name>Daft Punk</name>
+			<id>music://id.echonest.com/~/AR/ARF8HTQ1187B9AE693</id>
+			<hotttnesss>1.0</hotttnesss>
+		</artist>
+	</artists>
+</response>
