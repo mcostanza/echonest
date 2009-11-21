@@ -61,5 +61,9 @@ describe Echonest::Artist do
       Echonest::Audio.should_receive(:build).with(audio_xml).and_return(audio)
       @artist.audio.should == [audio]
     end
+    it "should not shit if the artist couldn't be found on echonest" do
+      Echonest::Artist.stub!(:request_and_parse).and_raise(StandardError)
+      @artist.audio.should == []
+    end
   end
 end

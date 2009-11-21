@@ -15,8 +15,8 @@ module Echonest
     
     def audio
       return @audio unless @audio.nil?
-      response = self.class.request_and_parse("artist/#{request_name}/audio.xspf", false)
-      @audio = response.search("track").map { |track| Echonest::Audio.build(track) }
+      response = self.class.request_and_parse("artist/#{request_name}/audio.xspf", false) rescue nil
+      @audio = response.nil? ? [] : response.search("track").map { |track| Echonest::Audio.build(track) }
       @audio
     end
     
