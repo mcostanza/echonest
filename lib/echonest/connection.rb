@@ -6,8 +6,10 @@ module Echonest
       @base_url = base_url
     end
     
-    def request(method, args = {})
-      request_url = "#{@base_url}/#{method}?#{encode(args)}"
+    def request(method, use_api, args = {})
+      request_url = @base_url
+      request_url += 'api/' if use_api == true
+      request_url += "#{method}?#{encode(args)}"
       open(request_url).read
     end
     

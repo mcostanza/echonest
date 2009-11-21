@@ -8,7 +8,7 @@ describe Echonest::Charts do
   describe ".get_top_hottt_artists(limit = 15)" do
     it "should make a request to the Echonest API" do
       response = mock("response", :search => [])
-      Echonest::Charts.should_receive(:request_and_parse).with("get_top_hottt_artists", { :rows => 10 }).and_return(response)
+      Echonest::Charts.should_receive(:request_and_parse).with("get_top_hottt_artists", true, { :rows => 10 }).and_return(response)
       Echonest::Charts.get_top_hottt_artists(:rows => 10)
     end
     it "should build and Echonest::Artist objects from the API response" do

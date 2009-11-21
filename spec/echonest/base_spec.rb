@@ -15,8 +15,8 @@ describe Echonest::Base do
     it "should make a request to the connection url" do
       method        = "get_top_hottt_artists"
       args          = { :arg => "value" }
-      Echonest::Base.connection.should_receive(:request).with(method, args)
-      Echonest::Base.request(method, args)
+      Echonest::Base.connection.should_receive(:request).with(method, true, args)
+      Echonest::Base.request(method, true, args)
     end
   end
   
@@ -32,17 +32,18 @@ describe Echonest::Base do
     before(:each) do
       @method   = "get_top_hottt_artists"
       @args     = { :arg => "value" }
+      @use_api  = true
       @response = StringIO.new("response")
     end
     it "should make a request" do
-      Echonest::Base.should_receive(:request).with(@method, @args).and_return(@response)
+      Echonest::Base.should_receive(:request).with(@method, @use_api, @args).and_return(@response)
       Echonest::Base.stub!(:parse)
-      Echonest::Base.request_and_parse(@method, @args)
+      Echonest::Base.request_and_parse(@method, @use_api, @args)
     end
     it "should parse the response" do
       Echonest::Base.stub!(:request).and_return(@response)
       Echonest::Base.should_receive(:parse).with(@response)
-      Echonest::Base.request_and_parse(@method, @args)
+      Echonest::Base.request_and_parse(@method, @use_api, @args)
     end
   end
   

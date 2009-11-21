@@ -10,6 +10,7 @@ require 'echonest/connection'
 require 'echonest/base'
 require 'echonest/charts'
 require 'echonest/artist'
+require 'echonest/audio'
 
 module Echonest
   VERSION = '0.0.1'

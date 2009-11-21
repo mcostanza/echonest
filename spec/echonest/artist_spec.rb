@@ -11,7 +11,7 @@ describe Echonest::Artist do
   end
   
   describe "attributes" do
-    %w[echonest_id name hotttnesss].each do |attribute|
+    %w[echonest_id name hotttnesss audio].each do |attribute|
       it "should have an attr_accessor for @#{attribute}" do
         @artist.should respond_to(attribute)
         @artist.should respond_to("#{attribute}=")
@@ -40,6 +40,26 @@ describe Echonest::Artist do
       artist = mock(Echonest::Artist)
       Echonest::Artist.should_receive(:new).with(:id => "music://id.echonest.com/~/AR/AR0IVTL1187B9AD520", :name => "Katy Perry", :hotttnesss => "1.0").and_return(artist)
       Echonest::Artist.build(@xml).should == artist
+    end
+  end
+  
+  describe "#audio" do
+    before(:each) do
+      @artist.audio = nil
+    end
+    it "should make a request to the Echonest API for the artist's audio xspf feed" do
+      response = mock("response", :search => [])
+      Echonest::Artist.should_receive(:request_and_parse).with("artist/Little+Brother/audio.xspf", false).and_return(response)
+      @artist.audio
+    end
+    it "should return an array of Echonest::Audio objects from the API response" do
+      audio = mock(Echonest::Audio)
+      audio_xml = mock("audio xml")
+      response = mock("response")
+      Echonest::Artist.stub!(:request_and_parse).and_return(response)
+      response.should_receive(:search).with("track").and_return([audio_xml])
+      Echonest::Audio.should_receive(:build).with(audio_xml).and_return(audio)
+      @artist.audio.should == [audio]
     end
   end
 end

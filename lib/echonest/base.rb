@@ -1,20 +1,20 @@
 module Echonest
   class Base
     
-    def self.request(api_method, args={})
-      self.connection.request(api_method, args)
+    def self.request(method, use_api, args={})
+      self.connection.request(method, use_api, args)
     end
   
     def self.connection
-      @connection ||= Echonest::Connection.new("http://developer.echonest.com/api/")
+      @connection ||= Echonest::Connection.new("http://developer.echonest.com/")
     end
     
     def self.parse(response)
       Nokogiri::XML(response)
     end
         
-    def self.request_and_parse(api_method, args={})
-      parse(request(api_method, args))
+    def self.request_and_parse(method, use_api, args={})
+      parse(request(method, use_api, args))
     end
   
   end
